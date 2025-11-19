@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf8" />
+  <meta name="viewport" content="width=device_width,initial_scale=1" />
+  <title>Regresion Lineal Simple</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="sidebar">
+
+      <div id="infoBox"> </div>
+
+      <br>
+
+      <div class="controls">
+        <label><input type="radio" name="mode" value="add" checked> Agregar puntos de datos</label>
+        <label><input type="radio" name="mode" value="draw"> Dibujar tu propia recta</label>
+
+        <label><input type="checkbox" id="showLS"> Mostrar la recta de minimos cuadrados</label>
+        <label><input type="checkbox" id="showMean"> Mostrar la recta media X y Y</label>
+        <label><input type="checkbox" id="showResid"> Mostrar residuos</label>
+
+        <div style="margin_top:14px">
+          <button id="clearBtn" class="btn">Borrar</button>
+        </div>
+      </div>
+
+      <div id="instructions">
+        <h2>¿Cómo usarlo?</h2>
+        <ul>
+          <li>Haz clic izquierdo para poner un punto.</li>
+          <li>Arrastra un punto para moverlo.</li>
+          <li>Haz clic derecho sobre un punto para borrarlo.</li>
+          <li>¿Quieres dibujar una línea? Haz clic en dos puntos.</li>
+          <li>Usa las casillas para mostrar o esconder la regresión, la media y los residuales.</li>
+          <li>Haz clic en "Borrar" para eliminar todo.</li>
+        </ul>
+      </div>
+
+    <div style="font-size:0.75em; text-align:right; margin-top:5px; color:#555;">
+      <a href="https://github.com/TheComputerCat/apalancamiento" target="_blank" style="text-decoration:none; color:#555;">TheComputerCat - Juan S.</a> | Código libre de la UNAL para todos ♥️ GPL V2
+    </div>
+
+
+    </div>
+
+    <div class="canvaswrap">
+      <canvas id="c"></canvas>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
