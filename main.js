@@ -257,6 +257,7 @@ class AppController {
     this.ctx = this.canvas.getContext("2d");
     this.DPR = window.devicePixelRatio || 1;
     this.draggedPointIndex = null;
+    this.dragging = false;
 
     this.points = { value: [] };
     this.customLine = { value: null };
@@ -343,6 +344,11 @@ class AppController {
   }
 
   handleClick(ev) {
+    if (this.dragging) {
+      this.dragging = false;
+      return;
+    };
+
     const rect = this.canvas.getBoundingClientRect();
     const x = ev.clientX - rect.left;
     const y = ev.clientY - rect.top;
@@ -386,6 +392,7 @@ class AppController {
       const dy = c.py - py;
       if (dx * dx + dy * dy <= radius * radius) {
         this.draggedPointIndex = i;
+        this.dragging = true;
         break;
       }
     }
