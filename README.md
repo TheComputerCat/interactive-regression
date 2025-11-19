@@ -1,6 +1,6 @@
 # Visualizador Interactivo de Puntos y Regresión
 
-**Demo en línea:** [GitHub Pages](https://thecomputercat.github.io/apalancamiento/)
+**Demo online:** [GitHub Pages](https://thecomputercat.github.io/apalancamiento/)
 
 Permite agregar, mover y eliminar puntos en un canvas, dibujar líneas personalizadas y ver la regresión lineal, medias y residuales de manera interactiva.
 
@@ -16,6 +16,5 @@ Permite agregar, mover y eliminar puntos en un canvas, dibujar líneas personali
 
 ## Créditos
 
-- **Autor:** Juan Sanchez 
-- **Repositorio:** [Juan Sanchez repo](https://github.com/TheComputerCat/apalancamiento) 
+- **Autor:** Juan Sánchez 
 - **Licencia:** GPLv2
