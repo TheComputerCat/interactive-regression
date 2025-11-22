@@ -78,5 +78,30 @@ h1 {
   width: 360px;
 }
 
+.sidebar h1,
+.sidebar h2,
+.sidebar h3 {
+  margin: 4px 0;
+  line-height: 1.1;
+}
+
+#infoBox h1 {
+  font-size: 1.5em;
+}
+
+#infoBox h3 {
+  font-size: 1.1em;
+}
+
+#infoBox * {
+  margin: 2px 0;
+}
+
+#infoBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 
 
