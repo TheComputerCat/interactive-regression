@@ -1,6 +1,6 @@
 # Visualizador Interactivo de Puntos y Regresión
 
-**Demo online:** [https://thecomputercat.github.io/apalancamiento/](https://thecomputercat.github.io/apalancamiento/)
+**Demo online:** [https://thecomputercat.github.io/interactive-regression/](https://thecomputercat.github.io/interactive-regression/)
 
 Permite agregar, mover y eliminar puntos en un canvas, dibujar líneas personalizadas y ver la regresión lineal, medias y residuales de manera interactiva.
 
