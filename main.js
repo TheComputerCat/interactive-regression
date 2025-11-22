@@ -296,7 +296,7 @@ class CanvasDrawer {
       `<h3>Puntos</h3>
       <h1>${this.points.value.length}</h1>
 
-      <h3>Coeficiente de correlacion</h3>
+      <h3>Coeficiente de correlación</h3>
       <h1>${this.points.value.length >= 2 ? r.toFixed(4) : "-"}</h1>
 
       <h3>Pendiente</h3>
@@ -471,25 +471,23 @@ class AppController {
   }
 
   deletePoint(ev) {
-  this.dragging = false;
-  const rect = this.canvas.getBoundingClientRect();
-  const x = ev.clientX - rect.left;
-  const y = ev.clientY - rect.top;
-  const radius = this.drawer.mouseRadio;
+    this.dragging = false;
+    const rect = this.canvas.getBoundingClientRect();
+    const x = ev.clientX - rect.left;
+    const y = ev.clientY - rect.top;
+    const radius = this.drawer.mouseRadio;
 
-  for (let i = 0; i < this.points.value.length; i++) {
-    const c = this.converter.toCanvas(this.points.value[i].x, this.points.value[i].y);
-    const dx = c.px - x;
-    const dy = c.py - y;
-    if (dx * dx + dy * dy <= radius * radius) {
-      this.points.value.splice(i, 1);
-      this.drawer.drawAll();
-      break;
+    for (let i = 0; i < this.points.value.length; i++) {
+      const c = this.converter.toCanvas(this.points.value[i].x, this.points.value[i].y);
+      const dx = c.px - x;
+      const dy = c.py - y;
+      if (dx * dx + dy * dy <= radius * radius) {
+        this.points.value.splice(i, 1);
+        this.drawer.drawAll();
+        break;
+      }
     }
   }
-}
-
-
 }
 
 (() => new AppController())();
