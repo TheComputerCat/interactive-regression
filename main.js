@@ -88,6 +88,7 @@ class CanvasDrawer {
     this.drawMeanLines();
     this.drawLeastSquares();
     this.drawCustomUserLine();
+    this.drawSquaredErrors();
     this.drawResiduals();
     this.drawPoints();
     this.updateInfoBox();
@@ -220,6 +221,39 @@ class CanvasDrawer {
     this.ctx.restore();
   }
 
+  drawSquaredErrors() {
+    const show = document.getElementById("showSquares").checked;
+    if (!show || this.points.value.length < 2) return;
+
+    const reg = StatsTools.linearRegression(this.points.value);
+
+    this.ctx.save();
+    this.ctx.fillStyle = "rgba(200, 40, 40, 0.25)";
+
+    for (const p of this.points.value) {
+      const real = this.converter.toCanvas(p.x, p.y);
+      const yLine = reg.m * p.x + reg.b;
+      const proj = this.converter.toCanvas(p.x, yLine);
+
+      const dx = proj.px - real.px;
+      const dy = proj.py - real.py;
+
+      const side = Math.sqrt(dx * dx + dy * dy);
+
+      this.ctx.save();
+      this.ctx.translate(real.px, real.py);
+      const ang = Math.atan2(dy, dx);
+      this.ctx.rotate(ang);
+
+      this.ctx.fillRect(0, 0, side, side);
+
+      this.ctx.restore();
+    }
+
+    this.ctx.restore();
+  }
+
+
   drawInfiniteLine(m, b, color, width) {
     const a = this.converter.toCanvas(0, b);
     const c = this.converter.toCanvas(1, m + b);
@@ -334,6 +368,7 @@ class AppController {
     document.getElementById("showLS").addEventListener("change", () => this.drawer.drawAll());
     document.getElementById("showMean").addEventListener("change", () => this.drawer.drawAll());
     document.getElementById("showResid").addEventListener("change", () => this.drawer.drawAll());
+    document.getElementById("showSquares").addEventListener("change", () => this.drawer.drawAll());
 
     document.querySelectorAll("input[name=mode]").forEach(r => {
       r.addEventListener("change", () => {
