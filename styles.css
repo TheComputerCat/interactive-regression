@@ -70,4 +70,13 @@ h1 {
   margin: 0;
 }
 
+.sidebar {
+  overflow-y: auto;
+  max-height: 100vh;
+  box-sizing: border-box;
+  padding-right: 8px;
+  width: 360px;
+}
+
+
 

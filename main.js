@@ -282,7 +282,28 @@ class CanvasDrawer {
   updateInfoBox() {
     const box = document.getElementById("infoBox");
     const r = StatsTools.correlation(this.points.value);
-    box.innerHTML = `<h3>Puntos:</h3> <h1>${this.points.value.length}</h1><br><h3>Coeficiente de correlación:</h3> <h1>${r.toFixed(4)}</h1>`;
+
+    let m = "-";
+    let b = "-";
+
+    if (this.points.value.length >= 2) {
+      const reg = StatsTools.linearRegression(this.points.value);
+      m = reg.m.toFixed(4);
+      b = reg.b.toFixed(4);
+    }
+
+    box.innerHTML =
+      `<h3>Puntos</h3>
+      <h1>${this.points.value.length}</h1>
+
+      <h3>Coeficiente de correlacion</h3>
+      <h1>${this.points.value.length >= 2 ? r.toFixed(4) : "-"}</h1>
+
+      <h3>Pendiente</h3>
+      <h1>${m}</h1>
+
+      <h3>Intercepto</h3>
+      <h1>${b}</h1>`;
   }
 }
 
