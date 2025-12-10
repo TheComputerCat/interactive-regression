@@ -61,6 +61,47 @@ class StatsTools {
 
     return dx * dy === 0 ? 0 : num / Math.sqrt(dx * dy);
   }
+
+
+  static quantileRegression(pts, tau = 0.5, iterations = 2000, lr = 0.05) {
+    if (pts.length < 2) return { m: 0, b: 0 };
+
+    const ls = StatsTools.linearRegression(pts);
+    let m = ls.m;
+    let b = ls.b;
+
+    const n = pts.length;
+    for (let it = 0; it < iterations; it++) {
+      let gradM = 0;
+      let gradB = 0;
+
+      for (const p of pts) {
+        const yHat = m * p.x + b;
+        const diff = p.y - yHat;
+
+        let dL_dyHat;
+        if (diff > 0) {
+          dL_dyHat = -tau;
+        } else if (diff < 0) {
+          dL_dyHat = 1 - tau;
+        } else {
+          dL_dyHat = 0;
+        }
+
+        gradM += dL_dyHat * p.x;
+        gradB += dL_dyHat;
+      }
+
+      gradM /= n;
+      gradB /= n;
+
+      m -= lr * gradM;
+      b -= lr * gradB;
+    }
+
+    return { m, b };
+  }
+
 }
 
 class CanvasDrawer {
@@ -87,6 +128,7 @@ class CanvasDrawer {
     this.drawGrid();
     this.drawMeanLines();
     this.drawLeastSquares();
+    this.drawQuantileRegression(0.5);
     this.drawCustomUserLine();
     this.drawSquaredErrors();
     this.drawResiduals();
@@ -179,6 +221,16 @@ class CanvasDrawer {
 
     const reg = StatsTools.linearRegression(this.points.value);
     this.drawInfiniteLine(reg.m, reg.b, "#0b7a3f", this.regressionLW);
+  }
+
+
+  drawQuantileRegression(tau = 0.5) {
+    const show = document.getElementById("showQR");
+    if (!show || !show.checked || this.points.value.length < 2) return;
+
+    const reg = StatsTools.quantileRegression(this.points.value, tau);
+
+    this.drawInfiniteLine(reg.m, reg.b, "#ff8800", this.regressionLW);
   }
 
   drawCustomUserLine() {
@@ -390,6 +442,7 @@ class AppController {
     document.getElementById("showMean").addEventListener("change", () => this.drawer.drawAll());
     document.getElementById("showResid").addEventListener("change", () => this.drawer.drawAll());
     document.getElementById("showSquares").addEventListener("change", () => this.drawer.drawAll());
+    document.getElementById("showQR").addEventListener("change", () => this.drawer.drawAll());
 
     document.querySelectorAll("input[name=mode]").forEach(r => {
       r.addEventListener("change", () => {
